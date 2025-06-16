@@ -1,4 +1,4 @@
-# Custom Linux Shell
+# Shell
 
 This project implements a **Bash-like shell in C++**, offering standard shell functionalities along with additional utilities for malware detection and file deletion under locked conditions. It interacts directly with Linux system interfaces such as `/proc`, enabling process monitoring and control.
 
