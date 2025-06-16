@@ -11,7 +11,6 @@ This project implements a **Bash-like shell in C++**, offering standard shell fu
 - [Usage](#usage)
 - [Built-in Commands](#built-in-commands)
 - [File Structure](#file-structure)
-- [References](#references)
 - [License](#license)
 
 ---
@@ -88,18 +87,10 @@ delep <filename>
 |---------------------|-------------------------------------------|
 | `shell.cpp`         | Main shell implementation                |
 | `sb.cpp`            | Malware detection logic (`sb` command)   |
-| `delep.cpp`         | File deletion utility (`delep` command)  |
+| `malware.cpp`         | File deletion utility (`delep` command)  |
 | `Makefile`          | Build configuration                      |
 | `README.md`         | Project documentation                    |
 
----
-
-## 📚 References
-
-- [Linux Shell](https://en.wikipedia.org/wiki/Unix_shell)
-- [`/proc` File System](https://man7.org/linux/man-pages/man5/proc.5.html)
-- [GNU Readline](https://tiswww.case.edu/php/chet/readline/rltop.html)
-- [Process Monitoring in Linux](https://linux.die.net/man/5/proc)
 
 ---
 
