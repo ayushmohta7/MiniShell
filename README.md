@@ -1,42 +1,59 @@
 # Buggy Workflow Engine
 
-This project implements a **minimal configurable workflow engine** (state-machine API) in C# using ASP.NET Core minimal APIs. It allows defining workflows with states and transitions (actions), starting workflow instances, and moving them through allowed transitions.
+This is a minimal backend service for defining and executing configurable workflows using a finite state machine model. The service is built using C# and ASP.NET Core minimal APIs, and stores all workflow and instance data in memory.
+
+The engine enables users to define workflows consisting of named states and actions (transitions), start instances from those workflows, and move those instances through transitions with basic rule validation.
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 - [Overview](#overview)
+- [Key Concepts](#key-concepts)
 - [Features](#features)
 - [Quickstart](#quickstart)
 - [API Summary](#api-summary)
-- [Structure](#structure)
+- [Project Structure](#project-structure)
+- [Limitations](#limitations)
+- [Assumptions](#assumptions)
 
 ---
 
-## 🧾 Overview
+## Overview
 
-The workflow engine supports basic state machine operations such as:
-- Defining states and actions (transitions)
-- Starting workflow instances
-- Executing actions to move instances between states
+This project provides a lightweight service that behaves like a state machine engine. Users can:
+- Define workflows consisting of states and transitions
+- Start instances from those workflow definitions
+- Execute transitions on instances while enforcing basic validity checks
 
-Each action has `fromStates`, a `toState`, and an enabled flag. A workflow must begin with an initial state.
-
----
-
-## ✨ Features
-
-- Add and retrieve **workflow definitions**
-- Create **workflow instances** from definitions
-- Transition workflow instances using defined actions
-- In-memory storage (no DB)
-
-⚠️ Some validation and edge cases may not be fully handled yet (e.g., action state mismatches, final-state checks).
+Designed for simplicity, this version does not use a database or external storage, making it easy to run and test locally.
 
 ---
 
-## ⚙️ Quickstart
+## Key Concepts
 
-### Run the server:
+- **State**: Represents a position in the workflow. Each state has an ID and flags such as `isInitial`, `isFinal`, and `enabled`.
+- **Action (Transition)**: Moves the instance from one or more allowed source states (`fromStates`) to a single target state (`toState`). Each action can be enabled or disabled.
+- **Workflow Definition**: A collection of states and actions. Exactly one state must be marked as `isInitial`.
+- **Workflow Instance**: A runtime entity tracking the current state of a workflow, along with a basic history of transitions.
+
+---
+
+## Features
+
+- Add and retrieve workflow definitions with custom state-action configurations.
+- Start new workflow instances that begin at the initial state.
+- Transition instances from one state to another using defined and valid actions.
+- In-memory data persistence (suitable for quick tests and demos).
+
+Some validation (e.g., rejecting transitions from final states or checking for undefined target states) is partially implemented and may require further refinement.
+
+---
+
+## Quickstart
+
+1. Ensure you have the .NET 8 SDK installed on your machine.
+2. Clone the repository and navigate into the project directory.
+3. Run the application:
+
 ```bash
 dotnet run
