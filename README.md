@@ -1,4 +1,4 @@
-# Buggy Workflow Engine
+# Workflow Engine
 
 This is a minimal backend service for defining and executing configurable workflows using a finite state machine model. The service is built using C# and ASP.NET Core minimal APIs, and stores all workflow and instance data in memory.
 
@@ -15,6 +15,7 @@ The engine enables users to define workflows consisting of named states and acti
 - [Project Structure](#project-structure)
 - [Limitations](#limitations)
 - [Assumptions](#assumptions)
+- [Future Improvements](#future-improvements)
 
 ---
 
