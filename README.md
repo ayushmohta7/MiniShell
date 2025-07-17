@@ -58,3 +58,11 @@ Some validation (e.g., rejecting transitions from final states or checking for u
 
 ```bash
 dotnet run
+## API Summary
+
+| Method | Route                          | Description                              |
+|--------|--------------------------------|------------------------------------------|
+| POST   | `/flowcharts`                 | Create a new workflow definition         |
+| POST   | `/sessions/{chartKey}`        | Start a new workflow instance            |
+| POST   | `/sessions/{token}/move`      | Execute a transition on the given instance |
+
