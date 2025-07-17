@@ -1,99 +1,42 @@
-# Shell
+# Buggy Workflow Engine
 
-This project implements a **Bash-like shell in C++**, offering standard shell functionalities along with additional utilities for malware detection and file deletion under locked conditions. It interacts directly with Linux system interfaces such as `/proc`, enabling process monitoring and control.
+This project implements a **minimal configurable workflow engine** (state-machine API) in C# using ASP.NET Core minimal APIs. It allows defining workflows with states and transitions (actions), starting workflow instances, and moving them through allowed transitions.
 
 ---
 
 ## 📑 Table of Contents
-- [Introduction](#introduction)
+- [Overview](#overview)
 - [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Built-in Commands](#built-in-commands)
-- [File Structure](#file-structure)
-- [License](#license)
+- [Quickstart](#quickstart)
+- [API Summary](#api-summary)
+- [Structure](#structure)
 
 ---
 
-## 🧾 Introduction
+## 🧾 Overview
 
-This shell provides a command-line interface similar to Bash, supporting key functionalities like command execution, input/output redirection, piping, and background processing. It also includes **custom commands** such as:
-- `sb`: Detects potential malware processes based on CPU heuristics.
-- `delep`: Unlocks and forcefully deletes files currently in use.
+The workflow engine supports basic state machine operations such as:
+- Defining states and actions (transitions)
+- Starting workflow instances
+- Executing actions to move instances between states
 
-The project is built using C++ and uses the Linux `/proc` file system and system calls to interact with processes and files.
+Each action has `fromStates`, a `toState`, and an enabled flag. A workflow must begin with an initial state.
 
 ---
 
 ## ✨ Features
 
-- **Command Execution**: Supports internal and external command execution.
-- **I/O Redirection & Piping**: Handles `<`, `>`, `|`, etc.
-- **Background Execution**: Use `&` to run processes in the background.
-- **Command History**: Integrated via GNU Readline.
-- **Arrow Key Navigation**: Use up/down arrows to scroll through history.
-- **Malware Detection (sb)**: Identifies idle parent processes with high child CPU usage.
-- **File Deletion Utility (delep)**: Force-deletes locked or in-use files.
+- Add and retrieve **workflow definitions**
+- Create **workflow instances** from definitions
+- Transition workflow instances using defined actions
+- In-memory storage (no DB)
+
+⚠️ Some validation and edge cases may not be fully handled yet (e.g., action state mismatches, final-state checks).
 
 ---
 
-## ⚙️ Installation
+## ⚙️ Quickstart
 
-### Clone the repository:
+### Run the server:
 ```bash
-git clone https://github.com/ayushmohta7/custom-shell.git
-cd custom-shell
-```
-
-### Build the shell:
-```bash
-make
-```
-
-Ensure you have a C++ compiler (e.g., `g++`) and `make` installed.
-
----
-
-## ▶️ Usage
-
-Run the shell:
-```bash
-./shell
-```
-
-You'll be presented with a prompt where you can execute shell commands and use custom utilities.
-
----
-
-## 🛠 Built-in Commands
-
-### 1. `sb` – SquashBug (Malware Detector)
-Detects potential malware-like behavior using the following heuristic:
-- If a sleeping parent process spawns many child processes that consume high CPU collectively, it is flagged as suspicious.
-- CPU usage is calculated using `/proc/[pid]/stat`.
-- Child hierarchy from `/proc/[pid]/task/[tid]/children`.
-
-### 2. `delep` – Delete Locked Files
-Unlocks and forcefully deletes a file even if it's in use by another process:
-```bash
-delep <filename>
-```
-
----
-
-## 📁 File Structure
-
-| File/Folder         | Purpose                                   |
-|---------------------|-------------------------------------------|
-| `shell.cpp`         | Main shell implementation                |
-| `sb.cpp`            | Malware detection logic (`sb` command)   |
-| `malware.cpp`         | File deletion utility (`delep` command)  |
-| `Makefile`          | Build configuration                      |
-| `README.md`         | Project documentation                    |
-
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+dotnet run
